@@ -1,11 +1,12 @@
 import { z } from 'zod/v4';
-import type { DrizzleDB } from '@neo-agent/memory';
-import { getUnprocessedLogs, getLatestBatchRun } from '@neo-agent/memory';
+import type { DrizzleDB, EmbeddingProvider } from '@neo-agent/memory';
+import { getUnprocessedLogs, getLatestBatchRun, runPipeline } from '@neo-agent/memory';
+import type { LlmCall } from '@neo-agent/memory';
 
 // Empty schema — no parameters needed
 export const memoryDreamSchema = {};
 
-export function createDreamHandler(db: DrizzleDB) {
+export function createDreamHandler(db: DrizzleDB, embeddingProvider?: EmbeddingProvider, llmCall?: LlmCall) {
   return async (_args: Record<string, never>) => {
     try {
       // Check if a run is already in progress
@@ -32,7 +33,24 @@ export function createDreamHandler(db: DrizzleDB) {
         };
       }
 
-      // TODO: Wire actual pipeline runner in Phase 4
+      // If pipeline dependencies are available, run the actual pipeline
+      if (embeddingProvider && llmCall) {
+        const result = await runPipeline({
+          db,
+          embeddingProvider,
+          llmCall,
+          triggerType: 'manual',
+        });
+
+        return {
+          content: [{
+            type: 'text' as const,
+            text: `Dream processing complete. ${result.sessionsProcessed} session(s) processed: ${result.factsCreated} facts created, ${result.entitiesCreated} entities, ${result.skillsCreated} skills. Duration: ${result.duration}ms.`,
+          }],
+        };
+      }
+
+      // Fallback: report counts without running pipeline
       return {
         content: [{
           type: 'text' as const,

@@ -70,7 +70,7 @@ export function createMemoryMcpServer(config: MemoryServerConfig): McpServer {
     'memory_dream',
     'Trigger batch memory consolidation pipeline',
     memoryDreamSchema,
-    createDreamHandler(db),
+    createDreamHandler(db, embeddingProvider),
   );
 
   return server;
