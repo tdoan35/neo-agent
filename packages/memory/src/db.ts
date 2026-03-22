@@ -1,6 +1,8 @@
 import Database from 'better-sqlite3';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
+import * as sqliteVec from 'sqlite-vec';
 import * as schema from './schema/index.js';
+import { EMBEDDING_DIMENSIONS } from '@neo-agent/shared';
 
 export type DrizzleDB = ReturnType<typeof createDatabase>;
 
@@ -40,6 +42,10 @@ export function createDatabase(dbPath: string) {
   for (const stmt of FTS5_STATEMENTS) {
     sqlite.exec(stmt);
   }
+
+  // Load sqlite-vec extension and create vector table
+  sqliteVec.load(sqlite);
+  sqlite.exec(`CREATE VIRTUAL TABLE IF NOT EXISTS vec_embeddings USING vec0(id TEXT PRIMARY KEY, vector FLOAT[${EMBEDDING_DIMENSIONS}])`);
 
   return db;
 }

@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "@neo-agent/shared": "workspace:*",
+    "better-sqlite3": "^11.0.0",
     "drizzle-orm": "^0.40.0",
-    "better-sqlite3": "^11.0.0"
+    "sqlite-vec": "^0.1.7"
   }
 }
