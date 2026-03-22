@@ -1,2 +1,1 @@
-// @neo-agent/mcp-server — placeholder
-export {};
+export { createMemoryMcpServer, type MemoryServerConfig } from './server.js';
