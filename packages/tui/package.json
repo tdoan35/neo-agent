@@ -6,10 +6,14 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "bin": {
+    "neo-agent": "./src/cli.ts"
+  },
   "dependencies": {
     "@neo-agent/shared": "workspace:*",
     "@neo-agent/memory": "workspace:*",
     "@neo-agent/agent": "workspace:*",
+    "@neo-agent/mcp-server": "workspace:*",
     "@neo-agent/gateway": "workspace:*"
   }
 }
