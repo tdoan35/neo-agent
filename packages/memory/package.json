@@ -1,0 +1,14 @@
+{
+  "name": "@neo-agent/memory",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@neo-agent/shared": "workspace:*",
+    "drizzle-orm": "^0.40.0",
+    "better-sqlite3": "^11.0.0"
+  }
+}
