@@ -6,3 +6,8 @@ export { runDiagnostics } from './doctor.js';
 export type { DiagnosticResult } from './doctor.js';
 export { ProcessManager } from './process-mgr/manager.js';
 export type { ManagedProcess, ProcessStatus } from './process-mgr/manager.js';
+export { createCronScheduler, cronMatches, calculateNextRun } from './cron/scheduler.js';
+export type { CronScheduler, CronSchedulerConfig } from './cron/scheduler.js';
+export { ensureBuiltinJobs, BUILTIN_JOBS } from './cron/builtin-jobs.js';
+export { startHeartbeat } from './heartbeat.js';
+export type { HeartbeatConfig, Heartbeat } from './heartbeat.js';

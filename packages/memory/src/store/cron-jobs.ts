@@ -64,8 +64,16 @@ export function disableCronJob(db: DrizzleDB, id: string): CronJob {
   return getCronJob(db, id);
 }
 
+export function listCronJobs(db: DrizzleDB): CronJob[] {
+  return db.select().from(cronJobs).all().map(toCronJob);
+}
+
 export function listEnabledCronJobs(db: DrizzleDB): CronJob[] {
   return db.select().from(cronJobs).where(eq(cronJobs.enabled, true)).all().map(toCronJob);
+}
+
+export function deleteCronJob(db: DrizzleDB, id: string): void {
+  db.delete(cronJobs).where(eq(cronJobs.id, id)).run();
 }
 
 export function updateLastRun(db: DrizzleDB, id: string, nextRunAt: string): CronJob {

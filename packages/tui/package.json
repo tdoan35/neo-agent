@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "@neo-agent/shared": "workspace:*",
+    "@neo-agent/memory": "workspace:*",
+    "@neo-agent/agent": "workspace:*",
     "@neo-agent/gateway": "workspace:*"
   }
 }

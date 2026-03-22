@@ -89,9 +89,15 @@ importers:
 
   packages/tui:
     dependencies:
+      '@neo-agent/agent':
+        specifier: workspace:*
+        version: link:../agent
       '@neo-agent/gateway':
         specifier: workspace:*
         version: link:../gateway
+      '@neo-agent/memory':
+        specifier: workspace:*
+        version: link:../memory
       '@neo-agent/shared':
         specifier: workspace:*
         version: link:../shared
